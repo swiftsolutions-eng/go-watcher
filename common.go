@@ -73,7 +73,14 @@ func generateBinaryPrefix() string {
 // runCommand runs the command with given name and arguments. It copies the
 // logs to standard output
 func runCommand(name string, args ...string) (*exec.Cmd, error) {
-	cmd := exec.Command(name, args...)
+	var cmd *exec.Cmd
+
+	if len(args) == 0 {
+		cmd = exec.CommandContext(context.Background(), "/bin/zsh", "-c", name)
+	} else {
+		cmd = exec.Command(name, args...)
+	}
+
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		return cmd, err
