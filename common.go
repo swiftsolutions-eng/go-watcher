@@ -1,6 +1,7 @@
 package watcher
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
